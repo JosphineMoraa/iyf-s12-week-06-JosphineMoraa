@@ -1,0 +1,29 @@
+name: Week 6 checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  syntax-checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Check Week 6 JavaScript files
+        run: |
+          node --check app.js
+          node --check async-practice.js
+          node --check daily-challenges/day-1-promises.js
+          node --check daily-challenges/day-2-sequential-async.js
+          node --check daily-challenges/day-3-promise-all.js
+          node --check daily-challenges/day-4-error-handling.js
+          node --check daily-challenges/day-5-retry.js
+          node --check lesson-12/server.js
