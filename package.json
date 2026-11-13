@@ -1,0 +1,8 @@
+{
+  "name": "iyf-s12-week-07",
+  "version": "1.0.0",
+  "description": "Week 7 To-Do List Application",
+  "main": "app.js",
+  "author": "Josphine Moraa",
+  "license": "ISC"
+}
