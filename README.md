@@ -1,41 +1,58 @@
 # Week 6: Async JavaScript and Weather Dashboard
 
-This folder contains a browser-based weather dashboard, async JavaScript practice, five daily challenges, and a GitHub Pages deployment workflow.
+This repository contains the Week 6 Weather Dashboard, callback/Promise/async-await practice, five daily challenges, and the Lesson 12 Node.js/Express weather API.
 
 ## Repository layout
 
-- `index.html`, `styles.css`, `app.js`, and `config.js` are the weather dashboard at the repository root. Keep these here because the GitHub Pages workflow deploys the root.
-- `config.example.js` is the safe API-key template; `config.js` is the local, ignored configuration file.
-- `async-practice.js` is a standalone async JavaScript example.
-- `daily-challenges/` contains the five daily practice scripts.
-- `lesson-12/` is a separate Node.js/Express lesson project with its own `package.json` and server.
-- `.github/workflows/` contains the GitHub Pages deployment workflow.
+- `index.html`, `styles.css`, `app.js` – browser weather dashboard
+- `config.example.js` – safe OpenWeather API-key template
+- `config.js` – local API-key file; ignored by Git and created by the Pages workflow during deployment
+- `async-practice.js` – Lesson 11 callback, Promise chaining, async/await, and Promise.all exercise
+- `daily-challenges/` – five async JavaScript challenges
+- `lesson-12/` – separate Node.js/Express weather API project
+- `.github/workflows/deploy.yml` – deploys the root dashboard to GitHub Pages
+- `.github/workflows/week6-checks.yml` – checks JavaScript syntax on every push
 
 ## Run the weather dashboard locally
 
 1. Get an API key from [OpenWeather](https://openweathermap.org/api).
-2. Add the key to `config.js`:
+2. Copy `config.example.js` and name the copy `config.js`.
+3. Replace the placeholder in `config.js` with your API key:
 
    ```js
    const API_KEY = "YOUR_OPENWEATHERMAP_API_KEY";
    ```
 
-3. Open `index.html` in a browser. If your browser blocks local requests, serve this folder with a local static web server instead.
+4. Open `index.html` in a browser. If your browser blocks local requests, serve the repository root with a local static web server.
 
-`config.js` is ignored by Git. `config.example.js` is a safe template and contains no working credential. A key used in a browser is visible to visitors; restrict it through the API provider's settings and usage limits.
+Search for a city to display its current temperature, feels-like temperature, weather description, humidity, wind speed, pressure, visibility, and weather icon.
 
-## Async practice
+`config.js` is ignored by Git. Never commit a real API key. A key used by a browser is visible to visitors, so restrict it through OpenWeather's API settings and usage limits.
 
-Run the standalone Node.js example:
+## Async JavaScript practice
+
+Run the standalone Lesson 11 example:
 
 ```sh
 node async-practice.js
 ```
 
-The five scripts in `daily-challenges/` cover promises, sequential `async`/`await`, `Promise.all`, error handling, and retries. The fetch challenge requires network access and a modern browser or Node.js version with `fetch`.
+It demonstrates the same user/orders/total flow with callbacks, Promise chaining, async/await, and Promise.all.
 
-## Deploy to GitHub Pages
+Run any daily challenge with Node.js, for example:
 
-The workflow in `.github/workflows/deploy.yml` deploys the repository root when changes are pushed to `main`. Enable GitHub Pages with **GitHub Actions** as the build source and add an `OPENWEATHER_API_KEY` repository secret.
+```sh
+node daily-challenges/day-1-promises.js
+```
 
-The workflow injects that key into the deployed static site. Because browser-side keys are publicly observable, restrict the key and its allowed services; do not use a privileged or server-side secret here.
+The five challenges cover promises and timers, sequential async/await, Promise.all, fetch error handling, and retry logic. The fetch challenge requires network access.
+
+## Lesson 12 – Node.js and Express
+
+See [lesson-12/README.md](lesson-12/README.md). The Express server reads its key from a local `.env` file and exposes `/weather?city=Nairobi`.
+
+## GitHub Pages deployment
+
+The workflow in `.github/workflows/deploy.yml` deploys the repository root when changes are pushed to `main`. In repository Settings → Secrets and variables → Actions, add a repository secret named `OPENWEATHER_API_KEY` containing your OpenWeather key. Then set GitHub Pages' build source to **GitHub Actions**.
+
+The workflow writes a temporary `config.js` from that secret during deployment. Because browser-side API keys are publicly observable, restrict the key to the required service and usage limits. Do not put a privileged server-side key in this dashboard.
