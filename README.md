@@ -56,3 +56,7 @@ See [lesson-12/README.md](lesson-12/README.md). The Express server reads its key
 The workflow in `.github/workflows/deploy.yml` deploys the repository root when changes are pushed to `main`. In repository Settings → Secrets and variables → Actions, add a repository secret named `OPENWEATHER_API_KEY` containing your OpenWeather key. Then set GitHub Pages' build source to **GitHub Actions**.
 
 The workflow writes a temporary `config.js` from that secret during deployment. Because browser-side API keys are publicly observable, restrict the key to the required service and usage limits. Do not put a privileged server-side key in this dashboard.
+
+## Live Demo
+
+[Open the Week 6 Weather Dashboard](https://josphinemoraa.github.io/iyf-s12-week-06-JosphineMoraa/)
