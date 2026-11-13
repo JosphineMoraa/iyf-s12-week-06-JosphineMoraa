@@ -22,6 +22,15 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
+      - name: Check OpenWeather API key configuration
+        env:
+          OPENWEATHER_API_KEY: ${{ secrets.OPENWEATHER_API_KEY }}
+        run: |
+          if [ -z "$OPENWEATHER_API_KEY" ]; then
+            echo "::warning::OPENWEATHER_API_KEY secret is not configured; dashboard will show an API-key message."
+          else
+            echo "OpenWeather API key secret is configured."
+          fi
       - name: Create config.js from repository secret
         env:
           OPENWEATHER_API_KEY: ${{ secrets.OPENWEATHER_API_KEY }}
